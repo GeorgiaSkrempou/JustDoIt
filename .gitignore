@@ -1,5 +1,6 @@
 .env
 venv
 __pychache__
+*.pyc
 workouts.db
 db.sqlite3
