@@ -4,13 +4,13 @@ from .models import ToDoList, Item
 from .forms import CreateNewList
 # Create your views here.
 
-def index(response, name):
-    ls = ToDoList.objects.get(name=name)
+def index(response, id):
+    ls = ToDoList.objects.get(id=id)
     if response.method == "POST":
         print(response.POST)
         if response.POST.get("save"):
             for item in ls.item_set.all():
-                if response.POST.get("c" + str(item.name)) == "clicked":
+                if response.POST.get("c" + str(item.id)) == "clicked":
                     item.complete = True
                 else:
                     item.complete = False
@@ -38,7 +38,7 @@ def create(response):
             t = ToDoList(name=n)
             t.save()
 
-        return HttpResponseRedirect(f"/{str(t.name)}")
+        return HttpResponseRedirect(f"/{t.id}")
     else: 
         form = CreateNewList()
     return render(response, "main/create.html", {"form":form})    
