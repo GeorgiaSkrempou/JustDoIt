@@ -6,8 +6,13 @@ from .models import ToDoList, Item
 def index(response, name):
     ls = ToDoList.objects.get(name=name)
     item = ls.item_set.get(id=2)
-    return HttpResponse(f"<h1>{ls.name}</h1><br></br><p>{str(item.text)}</p>")
+    return render(response, "main/list.html", {"ls":ls})
     
 def home(response):
-    pass
+    return render(response, "main/home.html", {})
 
+# def supermarket_list(response, name):
+#     ls = ToDoList.objects.get(name=name)
+#     item = ls.item_set.get(id=2)
+#     return render(response, "main/base.html", {})
+    
