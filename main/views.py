@@ -50,3 +50,5 @@ def create(response):
 
 def view(response):
     return  render(response, "main/view.html", {})
+
+
