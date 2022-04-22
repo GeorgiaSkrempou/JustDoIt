@@ -19,8 +19,15 @@
 
 <form method="POST" action="#">
     {% csrf_token %}
+    
+    <div class="input-group mb-5">
+        <div class="col-xs-4">
 
-    <input type = "text", name = "new">
-    <button type = "submit", name = "newList", value = "newList">Create List</button>
+            <input type = "text", class = "form-control" placeholder = "List name" name = "new">
+        </div>
+        <div class = "input-group-append">
+            <button class = "btn btn-outline-primary" type = "submit" name = "newList" value = "newList">Create List</button>
+        </div>
+    </div>
 </form>
 {% endblock %}
