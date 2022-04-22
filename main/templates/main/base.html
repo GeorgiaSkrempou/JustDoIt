@@ -10,15 +10,15 @@
             z-index:1;
             top:0;
             left:0;
-            background-color:rgb(36, 31, 42);
+            background-color:rgb(36, 34, 38);
             overflow-x: hidden;
             padding-top:20px;
         }
 
         .sidenav a {
-            padding:6px 8px 6px 16px;
+            padding:0px 8px 6px 16px;
             text-decoration: none;
-            font-size:25px;
+            font-size:20px;
             color: #d3d3d3;
             display:block;
         }
@@ -28,7 +28,7 @@
         }
 
         .main{
-            margin-left:160px;
+            margin-left:50px;
             padding: 0px 10px;
         }
 
@@ -42,7 +42,6 @@
     
     <title>
         {%block title%}
-            Georgia's Website
         {% endblock%}
     </title>
 
@@ -51,11 +50,8 @@
 <body>
     <div class="sidenav">
         <a href="/">Home</a>
-        <a href="/create/">Create</a>
-        <a href="/view">View</a>
-        <!-- <a href="/register">Register</a> -->
-        <!-- <a href="/login">Login</a> -->
-        <!-- <a href="/logout">Logout</a> -->
+        <a href="/view">My Lists</a>
+        <a href="/create/">New List</a>
     </div>
 
     <div id="content", name = "content", class="main">
