@@ -8,9 +8,30 @@
     <h2>My Lists</h2>
     <hr>
 
+    <form method = "POST" action = "#">
+        {% csrf_token %}
 
+        {% for td in user.todolist.all %}
+            <div class="col-xs-4">
+                <div class="input-group-text">
+                    <div class="input-group-append">
 
-    {% for td in user.todolist.all %}
-        <p><a href="/{{td.id}}">{{td.name}}</a></p>
-    {% endfor %}
+                        <p><a href="/{{td.id}}">{{td.name}}</a></p>
+
+                    {% if td.selected == True %}
+                        <input type="checkbox", value="clicked", name="c{{td.id}}" checked>
+                    {% else %}
+                        <input type="checkbox", value="clicked", name="c{{td.id}}">
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <hr>
+
+        <button class="btn btn-outline-primary" type="submit" name="delete" value="delete">Delete List</button>
+
+    </form>
+
 {% endblock %}
