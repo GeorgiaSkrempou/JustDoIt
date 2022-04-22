@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import ToDoList, Item
 from .forms import CreateNewList
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required # to allow only authenticated user to access some views
 # Create your views here.
 
