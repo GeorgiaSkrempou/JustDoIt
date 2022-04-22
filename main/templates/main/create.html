@@ -3,14 +3,24 @@
 {% block title %} Create New List {% endblock %}
 
 {% block content %} 
-<h3>Create Page</h3>
-<form method="post" action="/create/" class="form-group">
+<h3>Create New List</h3>
+<hr>
+<!-- <form method="post" action="/create/" class="form-group">
     {% csrf_token %}
     <div class="input-group mb-3">
-        <div class="inpu-group-prepend">
+            <input type="text", class = "form-control" placeholder="Item name" name="new">
+        <div class="input-group-append">
             <button type="submit", name="save" class="btn btn-success">Create New</button>
         </div>
     {{form.name}}
     </div>
+</form>-->
+
+
+<form method="POST" action="#">
+    {% csrf_token %}
+
+    <input type = "text", name = "new">
+    <button type = "submit", name = "newList", value = "newList">Create List</button>
 </form>
 {% endblock %}
