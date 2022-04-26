@@ -18,6 +18,8 @@ Home
         <p>Log out<a href="{% url 'logout' %}"> here</a></p>
     {% else %}
         <p>You are not logged in. Log in<a href="{% url 'login' %}"> here</a></p>
+        <p>Don't have an account? Register<a href="{% url 'register' %}"> here</a></p>
+
     {% endif %}
 
 {% endblock %}

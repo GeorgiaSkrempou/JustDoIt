@@ -9,38 +9,38 @@ from django.contrib.auth.decorators import login_required # to allow only authen
 
 
 @login_required
-def index(response, id):
+def index(request, id):
     ls = ToDoList.objects.get(id=id)
 
-    if ls in response.user.todolist.all():
-        if response.method == "POST":
+    if ls in request.user.todolist.all():
+        if request.method == "POST":
             #print(response.POST)
-            if response.POST.get("save"):
-                for item in ls.item_set.all():
-                    if response.POST.get("c" + str(item.id)) == "clicked":
+            if request.POST.get("save"):
+                for item in ():
+                    if request.POST.get("c" + str(item.id)) == "clicked":
                         item.complete = True
                     else:
                         item.complete = False
                     item.save()
-            elif response.POST.get("newItem"):
-                txt = response.POST.get("new")
+            elif request.POST.get("newItem"):
+                txt = request.POST.get("new")
                 if len(txt) > 2:
                     ls.item_set.create(text=txt, complete = False)
                 else:
                     print("invalid")
 
-            elif response.POST.get("delete"):
+            elif request.POST.get("delete"):
                 for item in ls.item_set.all():
-                    if response.POST.get("c" + str(item.id)) == "clicked":
+                    if request.POST.get(f"c{item.id}") == "clicked":
                         item.delete()
 
 
-        return render(response, "main/list.html", {"ls":ls})
+        return render(request, "main/list.html", {"ls":ls})
 
-    return render(response, "main/view.html", {})
+    return render(request, "main/view.html", {})
     
-def home(response):
-    return render(response, "main/home.html", {})
+def home(request):
+    return render(request, "main/home.html", {})
 
 # @login_required
 # def create(response):
@@ -58,35 +58,33 @@ def home(response):
 #     return render(response, "main/create.html", {"form":form})   
 
 @login_required
-def create(response):
+def create(request):
     ls = ToDoList.objects.all()
 
-    if response.method == "POST":
-        if response.POST.get("newList"):
-            txt = response.POST.get("new")
+    if request.method == "POST":
+        if request.POST.get("newList"):
+            txt = request.POST.get("new")
             if len(txt) > 2:
                 t=ToDoList(name=txt)
                 t.save()
-                response.user.todolist.add(t)
+                request.user.todolist.add(t)
                 return HttpResponseRedirect(f"/{t.id}")
             else:
                 print("invalid")
             
-    return render(response, "main/create.html", {})
+    return render(request, "main/create.html", {})
 
 
 
 
 @login_required
-def view(response):
-    td = ToDoList.objects.get(id=id)
-    if response.method == "POST":
-
-        if response.POST.get("delete"):
-
-                if response.POST.get("c" + str(td.id)) == "clicked":
-                    td.delete()
-    
-    return  render(response, "main/view.html", {})
+def view(request):
+    ids_to_delete = request.POST.getlist('clicked')
+    to_delete = ToDoList.objects.filter(id__in=ids_to_delete)
+    print(to_delete)
+    for list in to_delete:
+        list.delete()
+   
+    return  render(request, "main/view.html", {})
 
 
