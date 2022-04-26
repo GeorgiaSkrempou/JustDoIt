@@ -39,13 +39,16 @@
                     {% else %}
                         <input type="checkbox", value="clicked", name="c{{item.id}}">
                     {% endif %}
+
+                    <button class="btn btn-outline-primary" type="submit", name="delete", value="{{item.id}}">Delete</button>
+
                 </div>
             </div>
         </div>
         {% endfor%}
         
         <button class="btn btn-outline-primary" type="submit", name="save", value="save">Save</button>
-        <button class="btn btn-outline-primary" type="submit", name="delete", value="delete">Delete</button>
+        <!-- <button class="btn btn-outline-primary" type="submit", name="delete", value="delete">Delete</button> -->
 
         
     </form>

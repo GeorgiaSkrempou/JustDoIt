@@ -1,43 +1,55 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from .models import ToDoList, Item
 from .forms import CreateNewList
 from django.contrib.auth.decorators import login_required # to allow only authenticated user to access some views
-# Create your views here.
 
+# Create your views here.
 
 
 
 @login_required
 def index(request, id):
-    ls = ToDoList.objects.get(id=id)
+    # gets a todolist from the database by id
+    list = ToDoList.objects.get(id=id)
 
-    if ls in request.user.todolist.all():
+    # checks if the fetched list belongs to the logged-in user
+    if list in request.user.todolist.all(): 
+        # if the request is POST
         if request.method == "POST":
-            #print(response.POST)
+            # if the save button was pressed
             if request.POST.get("save"):
-                for item in ():
-                    if request.POST.get("c" + str(item.id)) == "clicked":
-                        item.complete = True
+                # loops through all of the items in the list 
+                for list_item in list.item_set.all():
+                    # if checkbox was clicked, marks it as complete in the database
+                    if request.POST.get(f"c{list_item.id}") == "clicked":
+                        list_item.complete = True
+                    # otherwise marks it as incomplete
                     else:
-                        item.complete = False
-                    item.save()
+                        list_item.complete = False
+                    # saves the changes
+                    list_item.save()
+            # else if the newItem button was pressed
             elif request.POST.get("newItem"):
+                # gets the text input 
                 txt = request.POST.get("new")
+                # cif the length of the text the user types is >2, creates a new item
                 if len(txt) > 2:
-                    ls.item_set.create(text=txt, complete = False)
+                    list.item_set.create(text=txt, complete = False)
                 else:
                     print("invalid")
-
+            # if the delete button was clicked
             elif request.POST.get("delete"):
-                for item in ls.item_set.all():
-                    if request.POST.get(f"c{item.id}") == "clicked":
-                        item.delete()
-
-
-        return render(request, "main/list.html", {"ls":ls})
-
-    return render(request, "main/view.html", {})
+                # gets the id of the item to delete
+                id_to_delete = request.POST.get('delete')
+                # gets the item to delete from the database by id
+                item_to_delete = Item.objects.get(id = id_to_delete)
+                # deletes the item from the database
+                item_to_delete.delete()
+        # returns the list template
+        return render(request, "main/list.html", {"ls":list})
+    # if the list does not belong to the user, returns a 404
+    return HttpResponseNotFound()
     
 def home(request):
     return render(request, "main/home.html", {})
@@ -80,9 +92,8 @@ def create(request):
 @login_required
 def view(request):
     ids_to_delete = request.POST.getlist('clicked')
-    to_delete = ToDoList.objects.filter(id__in=ids_to_delete)
-    print(to_delete)
-    for list in to_delete:
+    lists_to_delete = ToDoList.objects.filter(id__in=ids_to_delete)
+    for list in lists_to_delete:
         list.delete()
    
     return  render(request, "main/view.html", {})
