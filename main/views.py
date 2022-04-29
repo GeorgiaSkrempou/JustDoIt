@@ -80,7 +80,7 @@ def create(request):
                 t=ToDoList(name=txt)
                 t.save()
                 request.user.todolist.add(t)
-                return HttpResponseRedirect(f"/{t.id}")
+                return render(request, "main/view.html", {})
             else:
                 print("invalid")
             
@@ -91,7 +91,7 @@ def create(request):
 
 @login_required
 def view(request):
-    ids_to_delete = request.POST.getlist('clicked')
+    ids_to_delete = request.POST.getlist('delete')
     lists_to_delete = ToDoList.objects.filter(id__in=ids_to_delete)
     for list in lists_to_delete:
         list.delete()
