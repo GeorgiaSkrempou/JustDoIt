@@ -9,8 +9,7 @@ Supports individual user functionality
 (Nothing to-do with Nike)
 
 ## Some examples 
-<img src="images/tdl-1.png" width="450"/>
-<img src="images/tdl-1.png" width="450"/>
+<img src="images/tdl-1.png" width="450"/> <img src="images/tdl-1.png" width="450"/>
 
 
 
