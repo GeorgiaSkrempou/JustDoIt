@@ -95,7 +95,7 @@ def view(request):
     lists_to_delete = ToDoList.objects.filter(id__in=ids_to_delete)
     for list in lists_to_delete:
         list.delete()
-   
+
     return  render(request, "main/view.html", {})
 
 
