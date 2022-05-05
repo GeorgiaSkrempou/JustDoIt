@@ -8,7 +8,9 @@ Supports individual user functionality
 
 (Nothing to-do with Nike)
 
-![image description](images/tdl-1.png)
+## Some examples 
 <img src="images/tdl-1.png" width="450"/>
+<img src="images/tdl-1.png" width="450"/>
+
 
 
