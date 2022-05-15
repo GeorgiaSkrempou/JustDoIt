@@ -1,11 +1,11 @@
+from django.contrib.auth.decorators import login_required  # to allow only authenticated user to access some views
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+
 from .models import ToDoList, Item
-from .forms import CreateNewList
-from django.contrib.auth.decorators import login_required # to allow only authenticated user to access some views
+
 
 # Create your views here.
-
 
 
 @login_required
@@ -14,7 +14,7 @@ def index(request, id):
     list = ToDoList.objects.get(id=id)
 
     # checks if the fetched list belongs to the logged-in user
-    if list in request.user.todolist.all(): 
+    if list in request.user.todolist.all():
         # if the request is POST
         if request.method == "POST":
             # if the save button was pressed
@@ -35,7 +35,7 @@ def index(request, id):
                 txt = request.POST.get("new")
                 # cif the length of the text the user types is >2, creates a new item
                 if len(txt) > 2:
-                    list.item_set.create(text=txt, complete = False)
+                    list.item_set.create(text=txt, complete=False)
                 else:
                     print("invalid")
             # if the delete button was clicked
@@ -43,16 +43,18 @@ def index(request, id):
                 # gets the id of the item to delete
                 id_to_delete = request.POST.get('delete')
                 # gets the item to delete from the database by id
-                item_to_delete = Item.objects.get(id = id_to_delete)
+                item_to_delete = Item.objects.get(id=id_to_delete)
                 # deletes the item from the database
                 item_to_delete.delete()
         # returns the list template
-        return render(request, "main/list.html", {"ls":list})
+        return render(request, "main/list.html", {"ls": list})
     # if the list does not belong to the user, returns a 404
     return HttpResponseNotFound()
-    
+
+
 def home(request):
     return render(request, "main/home.html", {})
+
 
 # @login_required
 # def create(response):
@@ -77,16 +79,14 @@ def create(request):
         if request.POST.get("newList"):
             txt = request.POST.get("new")
             if len(txt) > 2:
-                t=ToDoList(name=txt)
+                t = ToDoList(name=txt)
                 t.save()
                 request.user.todolist.add(t)
                 return render(request, "main/view.html", {})
             else:
                 print("invalid")
-            
+
     return render(request, "main/create.html", {})
-
-
 
 
 @login_required
@@ -96,6 +96,4 @@ def view(request):
     for list in lists_to_delete:
         list.delete()
 
-    return  render(request, "main/view.html", {})
-
-
+    return render(request, "main/view.html", {})

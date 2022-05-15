@@ -4,3 +4,4 @@ __pychache__
 *.pyc
 workouts.db
 db.sqlite3
+.idea

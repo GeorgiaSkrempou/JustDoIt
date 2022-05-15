@@ -2,34 +2,36 @@
 
 
 {% block title %}
-Home
+    Home
 {% endblock %}
 
 
 
 {% block content %}
 
-<h1>Just do it</h1>
-<hr>
+    <h1>Just do it</h1>
+    <hr>
 
 
     {% if user.is_authenticated %}
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">Hi, {{user.username}}!</h5>
+                <h5 class="card-title">Hi, {{ user.username }}!</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Welcome to <span style="color: blue;">Just Do It!</span></h6>
-                <p class="card-text">We know you lead a busy life! Here, you can take a breath and organise your tasks and your life</p>
+                <p class="card-text">We know you lead a busy life! Here, you can take a breath and organise your tasks
+                    and your life</p>
                 <a href="/view" class="card-link">View your lists</a>
                 <a href="/create" class="card-link">Create a new list</a>
-                </div>
+            </div>
         </div>
     {% else %}
-        
+
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Hi!</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Welcome to <span style="color: blue;">Just Do It!</span></h6>
-                <p class="card-text">We know you lead a busy life! Here, you can take a breath and organise your tasks and your life</p>
+                <p class="card-text">We know you lead a busy life! Here, you can take a breath and organise your tasks
+                    and your life</p>
                 <a href="/login" class="card-link">Login</a>
                 <a href="/register" class="card-link">Register</a>
             </div>

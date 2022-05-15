@@ -8,24 +8,25 @@
     <h2>My Lists</h2>
     <hr>
 
-   <form method="POST">
+    <form method="POST">
         {% csrf_token %}
         {% for td in user.todolist.all %}
             <!-- <div class="input-group mb-3 " style="width:29.5em"> -->
             <div class="row g-0">
                 <div class="list-group col-6 pr-1 ">
-                    <a href="/{{td.id}}" class="list-group-item list-group-item-action" value="{{td.name}}">{{td.name}}</a>
+                    <a href="/{{ td.id }}" class="list-group-item list-group-item-action"
+                       value="{{ td.name }}">{{ td.name }}</a>
                 </div>
-                    <!-- <input type="text" class="form-control" aria-label="Text input with checkbox", value="{{td.name}}"> -->
+                <!-- <input type="text" class="form-control" aria-label="Text input with checkbox", value="{{td.name}}"> -->
                 <div class="col-1 pl-0 pb-2">
-                    <button style = "padding:10px" type="submit" class="btn btn-outline-primary" name="delete" value="{{td.id}}"><span class="bi bi-trash"></span></button>
+                    <button style="padding:10px" type="submit" class="btn btn-outline-primary" name="delete"
+                            value="{{ td.id }}"><span class="bi bi-trash"></span></button>
                 </div>
 
             </div>
-            
-            
-        {% endfor %}
 
+
+        {% endfor %}
 
 
     </form>

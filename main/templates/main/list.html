@@ -5,58 +5,60 @@
 {% block content %}
 
 
-    <h1>{{ls.name}}</h1>
+    <h1>{{ ls.name }}</h1>
     <hr>
-    <p>                    
+    <p>
 
 
-
-        
     </p>
     <form method="POST" action="">
         {% csrf_token %}
 
-       
+
         {% for item in ls.item_set.all %}
             <div class="input-group mb-3 " style="width:29.5%">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
                         {% if item.complete == True %}
-                            <input type="checkbox" aria-label="marks the item as done" value="clicked" name="c{{item.id}}" checked >
+                            <input type="checkbox" aria-label="marks the item as done" value="clicked"
+                                   name="c{{ item.id }}" checked>
                         {% else %}
-                            <input type="checkbox" aria-label="marks the item as done" value="clicked" name="c{{item.id}}">
+                            <input type="checkbox" aria-label="marks the item as done" value="clicked"
+                                   name="c{{ item.id }}">
                         {% endif %}
                     </div>
                 </div>
-                
-                <input type="text" class="form-control" aria-label="Text input with checkbox", value="{{item.text}}">
-                <button type="submit" class="btn btn-outline-primary" name="delete" value="{{item.id}}"><span class="bi bi-trash"></span></button>
+
+                <input type="text" class="form-control" aria-label="Text input with checkbox" , value="{{ item.text }}">
+                <button type="submit" class="btn btn-outline-primary" name="delete" value="{{ item.id }}"><span
+                        class="bi bi-trash"></span></button>
 
             </div>
-        {% endfor%}
-        
+        {% endfor %}
 
 
-        
+
+
         <button class="btn btn-outline-primary" type="submit" name="save" value="save">Save</button>
         <!-- <button class="btn btn-outline-primary" type="submit", name="delete", value="delete">Delete</button> -->
         <hr>
-    
+
         <div class="input-group mb-5">
 
             <div class="col-xs-2">
-                <input type="text" class = "form-control" placeholder="add item" name="new">
+                <input type="text" class="form-control" placeholder="add item" name="new">
             </div>
             <div class="input-group-append">
-                <button class="btn btn-outline-primary" type="submit" name="newItem" value="newItem"><span class="bi bi-plus-lg"></span></button>
+                <button class="btn btn-outline-primary" type="submit" name="newItem" value="newItem"><span
+                        class="bi bi-plus-lg"></span></button>
             </div>
         </div>
 
-        
+
     </form>
 
 
-    
+
 
 
 {% endblock %}
